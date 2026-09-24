@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "-": "^0.0.1",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",
     "cookie": "^1.0.2",
@@ -29,13 +28,11 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "watch": "src",
-  "ext": "js,json",
-  "ignore": "node_modules",
-  "exec": "node app.js"
+    "ext": "js,json",
+    "ignore": "node_modules",
+    "exec": "node app.js"
   },
   "author": "",
   "license": "ISC",
   "description": ""
 }
-
-
