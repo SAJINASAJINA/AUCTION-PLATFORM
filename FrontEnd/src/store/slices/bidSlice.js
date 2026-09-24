@@ -28,7 +28,7 @@ export const placeBid = (id, data) => async (dispatch) => {
 
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/v1/bid/place/${id}`,
+      `https://auction-platform-lwfk.onrender.com/api/v1/bid/place/${id}`,
       data,
       {
         withCredentials: true,
