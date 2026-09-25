@@ -57,6 +57,13 @@ app.use(
 );
 
 app.use("/api/v1/user", userRouter);
+
+app.get("/api/v1/auctionitem/test", (req, res) => {
+  res.json({
+    success: true,
+    message: "Auction item route is working",
+  });
+});
 app.use("/api/v1/auctionitem", auctionItemRouter);
 app.use("/api/v1/bid", bidRouter);
 app.use("/api/v1/commission", commissionRouter);
