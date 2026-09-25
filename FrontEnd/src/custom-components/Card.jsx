@@ -50,11 +50,9 @@ const Card = ({ imgSrc, title, startingBid, startTime, endTime, id }) => {
       to={`/auction/item/${id}`}
       className="flex-grow basis-full bg-white rounded-md group sm:basis-56 lg:basis-60 2xl:basis-80"
     >
-      <img
-        src={imgSrc}
-        alt={title}
-        className="w-full aspect-[4/3] m-auto md:p-12"
-      />
+      <div className="w-full h-48 sm:h-56 overflow-hidden rounded-t-md">
+        <img src={imgSrc} alt={title} className="w-full h-full object-cover" />
+      </div>
 
       <div className="px-2 pt-4 pb-2">
         <h5 className="font-semibold text-[18px] group-hover:text-[#d6482b] mb-2">
