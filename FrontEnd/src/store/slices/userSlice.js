@@ -102,7 +102,7 @@ export const register = (data) => async (dispatch) => {
 
   try {
     const response = await axios.post(
-      "https://auction-platform-lwfk.onrender.com/api/v1/user/register",
+      "https://auction-platform-lwkf.onrender.com/api/v1/user/register",
       data,
       {
         withCredentials: true,
@@ -125,7 +125,7 @@ export const login = (data) => async (dispatch) => {
 
   try {
     const response = await axios.post(
-      "https://auction-platform-lwfk.onrender.com/api/v1/user/login",
+      "https://auction-platform-lwkf.onrender.com/api/v1/user/login",
       data,
       {
         withCredentials: true,
@@ -155,7 +155,7 @@ export const login = (data) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     const response = await axios.get(
-      "https://auction-platform-lwfk.onrender.com/api/v1/user/logout",
+      "https://auction-platform-lwkf.onrender.com/api/v1/user/logout",
       {
         withCredentials: true,
       },
@@ -183,7 +183,7 @@ export const fetchUser = () => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      "https://auction-platform-lwfk.onrender.com/api/v1/user/me",
+      "https://auction-platform-lwkf.onrender.com/api/v1/user/me",
       {
         withCredentials: true,
       },
@@ -203,7 +203,7 @@ export const fetchLeaderboard = () => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      "https://auction-platform-lwfk.onrender.com/api/v1/user/leaderboard",
+      "https://auction-platform-lwkf.onrender.com/api/v1/user/leaderboard",
       {
         withCredentials: true,
       },

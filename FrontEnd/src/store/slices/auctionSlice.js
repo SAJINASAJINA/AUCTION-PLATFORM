@@ -79,7 +79,7 @@ export const getAllAuctionItems = () => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      "https://auction-platform-lwfk.onrender.com/api/v1/auctionitem/allitems",
+      "https://auction-platform-lwkf.onrender.com/api/v1/auctionitem/allitems",
       {
         withCredentials: true,
       },
@@ -103,7 +103,7 @@ export const getAuctionDetail = (id) => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      `https://auction-platform-lwfk.onrender.com/api/v1/auctionitem/auction/${id}`,
+      `https://auction-platform-lwkf.onrender.com/api/v1/auctionitem/auction/${id}`,
       {
         withCredentials: true,
       },
@@ -124,7 +124,7 @@ export const getMyAuctionItems = () => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      "https://auction-platform-lwfk.onrender.com/api/v1/auctionitem/myitems",
+      "https://auction-platform-lwkf.onrender.com/api/v1/auctionitem/myitems",
       {
         withCredentials: true,
       },
@@ -148,7 +148,7 @@ export const createAuction = (data) => async (dispatch) => {
 
   try {
     const response = await axios.post(
-      "https://auction-platform-lwfk.onrender.com/api/v1/auctionitem/create",
+      "https://auction-platform-lwkf.onrender.com/api/v1/auctionitem/create",
       data,
       {
         withCredentials: true,

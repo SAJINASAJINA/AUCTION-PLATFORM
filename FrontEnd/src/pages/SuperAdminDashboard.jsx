@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API = "https://auction-platform-lwfk.onrender.com/api/v1/superadmin";
+const API = "https://auction-platform-lwkf.onrender.com/api/v1/superadmin";
 
 const SuperAdminDashboard = () => {
   const [users, setUsers] = useState({
