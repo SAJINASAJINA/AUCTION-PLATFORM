@@ -9,7 +9,7 @@ const router = express.Router();
 router.post(
   "/proof",
   isAuthenticated,
-  isAuthorized("Auctioneer"),
+  isAuthorized("Bidder"),
   proofOfCommission,
 );
 
