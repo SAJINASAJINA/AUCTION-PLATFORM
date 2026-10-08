@@ -141,13 +141,17 @@ Sajina Auction Team.`;
 
         console.log("SENDING OUTBID EMAIL TO:", outbidUser.email);
 
-        await sendEmail({
-          email: outbidUser.email,
-          subject,
-          message,
-        });
+        try {
+          await sendEmail({
+            email: outbidUser.email,
+            subject,
+            message,
+          });
 
-        console.log("OUTBID EMAIL SENT SUCCESSFULLY");
+          console.log("OUTBID EMAIL SENT SUCCESSFULLY");
+        } catch (emailError) {
+          console.log("OUTBID EMAIL FAILED:", emailError.message);
+        }
       }
     }
 
