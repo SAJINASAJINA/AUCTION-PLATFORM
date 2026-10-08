@@ -3,6 +3,7 @@ import {
   getAllItems,
   getAuctionDetails,
   getMyAuctionItems,
+  getUnsoldAuctionItems,
   removeFromAuction,
   republishItem,
 } from "../controllers/auctionItemController.js";
@@ -29,6 +30,13 @@ router.get(
   isAuthenticated,
   isAuthorized("Auctioneer"),
   getMyAuctionItems,
+);
+
+router.get(
+  "/unsold",
+  isAuthenticated,
+  isAuthorized("Auctioneer"),
+  getUnsoldAuctionItems,
 );
 
 router.delete(

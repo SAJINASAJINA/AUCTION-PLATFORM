@@ -288,3 +288,18 @@ export const republishItem = catchAsyncErrors(async (req, res, next) => {
     createdBy,
   });
 });
+
+export const getUnsoldAuctionItems = catchAsyncErrors(
+  async (req, res, next) => {
+    const items = await Auction.find({
+      createdBy: req.user._id,
+      endTime: { $lt: new Date() },
+      highestBidder: null,
+    });
+
+    res.status(200).json({
+      success: true,
+      items,
+    });
+  },
+);

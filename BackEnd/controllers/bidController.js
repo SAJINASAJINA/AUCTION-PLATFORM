@@ -164,3 +164,16 @@ Sajina Auction Team.`;
     return next(new ErrorHandler(error.message || "Failed to place bid.", 500));
   }
 });
+
+export const getMyBids = catchAsyncErrors(async (req, res, next) => {
+  const bids = await Bid.find({
+    "bidder.id": req.user._id,
+  })
+    .populate("auctionItem", "tittle image startingBid auctionType")
+    .sort({ _id: -1 });
+
+  res.status(200).json({
+    success: true,
+    bids,
+  });
+});
