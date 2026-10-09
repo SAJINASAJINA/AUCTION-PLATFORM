@@ -48,6 +48,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["Auctioneer", "Bidder", "super admin"],
   },
+  rating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5,
+  },
+  ratingCount: {
+    type: Number,
+    default: 0,
+  },
   unpaidcommission: {
     type: Number,
     default: 0,

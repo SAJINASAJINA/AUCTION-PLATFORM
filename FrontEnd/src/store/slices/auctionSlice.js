@@ -12,6 +12,7 @@ const auctionSlice = createSlice({
     auctionBidders: [],
     myAuctions: [],
     allAuctions: [],
+    unsoldAuctions: [],
   },
 
   reducers: {
@@ -66,6 +67,19 @@ const auctionSlice = createSlice({
     getMyAuctionItemsFailed(state) {
       state.loading = false;
       state.myAuctions = [];
+    },
+    getUnsoldAuctionItemsRequest(state) {
+      state.loading = true;
+    },
+
+    getUnsoldAuctionItemsSuccess(state, action) {
+      state.loading = false;
+      state.unsoldAuctions = action.payload;
+    },
+
+    getUnsoldAuctionItemsFailed(state) {
+      state.loading = false;
+      state.unsoldAuctions = [];
     },
 
     resetSlice(state) {
@@ -143,6 +157,53 @@ export const getMyAuctionItems = () => async (dispatch) => {
   }
 };
 
+export const getUnsoldAuctionItems = () => async (dispatch) => {
+  dispatch(auctionSlice.actions.getUnsoldAuctionItemsRequest());
+
+  try {
+    const response = await axios.get(
+      "https://auction-platform-lwkf.onrender.com/api/v1/auctionitem/unsold",
+      {
+        withCredentials: true,
+      },
+    );
+
+    dispatch(
+      auctionSlice.actions.getUnsoldAuctionItemsSuccess(
+        response.data.items || [],
+      ),
+    );
+  } catch (error) {
+    dispatch(auctionSlice.actions.getUnsoldAuctionItemsFailed());
+
+    console.error(
+      "Get unsold auction items error:",
+      error.response?.data || error.message,
+    );
+  }
+};
+export const republishAuction = (id, data) => async (dispatch) => {
+  try {
+    const response = await axios.put(
+      `https://auction-platform-lwkf.onrender.com/api/v1/auctionitem/item/republish/${id}`,
+      data,
+      {
+        withCredentials: true,
+      },
+    );
+
+    toast.success(response.data.message);
+
+    dispatch(getUnsoldAuctionItems());
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Failed to republish auction");
+
+    console.error(
+      "Republish auction error:",
+      error.response?.data || error.message,
+    );
+  }
+};
 export const createAuction = (data) => async (dispatch) => {
   dispatch(auctionSlice.actions.createAuctionRequest());
 

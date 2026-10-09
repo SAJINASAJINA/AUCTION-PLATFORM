@@ -44,5 +44,23 @@ export const placeBid = (id, data) => async (dispatch) => {
     toast.error(error.response?.data?.message || "Failed to place bid");
   }
 };
+export const getMyBids = () => async () => {
+  try {
+    const response = await axios.get(
+      "https://auction-platform-lwkf.onrender.com/api/v1/bid/my-bids",
+      {
+        withCredentials: true,
+      },
+    );
+
+    return response.data.bids || [];
+  } catch (error) {
+    console.error("Get my bids error:", error.response?.data || error.message);
+
+    toast.error(error.response?.data?.message || "Failed to fetch bid history");
+
+    return [];
+  }
+};
 
 export default bidSlice.reducer;

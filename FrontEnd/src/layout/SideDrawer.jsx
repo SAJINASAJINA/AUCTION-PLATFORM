@@ -9,6 +9,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdCloseCircleOutline, IoIosCreate } from "react-icons/io";
 import { FaFileInvoiceDollar } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
+import { FaBoxes } from "react-icons/fa";
+import { FaGavel } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/store/slices/userSlice";
 import { Link } from "react-router-dom";
@@ -58,6 +60,16 @@ const SideDrawer = () => {
                 <MdLeaderboard /> Leaderboard
               </Link>
             </li>
+            {isAuthenticated && user && user.role === "Bidder" && (
+              <li>
+                <Link
+                  to={"/my-bids"}
+                  className="flex text-xl font-semibold gap-2 items-center hover:text-[#D6482b] hover:transition-all hover:duration-150"
+                >
+                  <FaGavel /> My Bids
+                </Link>
+              </li>
+            )}
             {isAuthenticated && user && user.role === "Auctioneer" && (
               <>
                 <li>
@@ -82,6 +94,14 @@ const SideDrawer = () => {
                     className="flex text-xl font-semibold gap-2 items-center hover:text-[#D6482b] hover:transition-all hover:duration-150"
                   >
                     <FaEye /> View My Auctions
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/inventory"}
+                    className="flex text-xl font-semibold gap-2 items-center hover:text-[#D6482b] hover:transition-all hover:duration-150"
+                  >
+                    <FaBoxes /> Inventory
                   </Link>
                 </li>
               </>

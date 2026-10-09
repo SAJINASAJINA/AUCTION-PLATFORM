@@ -6,6 +6,7 @@ import {
   getUnsoldAuctionItems,
   removeFromAuction,
   republishItem,
+  updateAuctionItem,
 } from "../controllers/auctionItemController.js";
 
 import { isAuthenticated, isAuthorized } from "../middlewares/auth.js";
@@ -44,6 +45,13 @@ router.delete(
   isAuthenticated,
   isAuthorized("Auctioneer"),
   removeFromAuction,
+);
+
+router.put(
+  "/update/:id",
+  isAuthenticated,
+  isAuthorized("Auctioneer"),
+  updateAuctionItem,
 );
 
 router.put(

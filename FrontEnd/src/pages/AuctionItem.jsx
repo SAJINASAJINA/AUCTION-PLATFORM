@@ -1,7 +1,7 @@
 import Spinner from "@/custom-components/Spinner";
 import { getAuctionDetail } from "@/store/slices/auctionSlice";
 import { placeBid } from "@/store/slices/bidSlice";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaGreaterThan } from "react-icons/fa";
 import { RiAuctionFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ const AuctionItem = () => {
   const { loading, auctionDetails, auctionBidders } = useSelector(
     (state) => state.auction,
   );
+  console.log("AUCTION DETAILS:", auctionDetails);
   const { isAuthenticated } = useSelector((state) => state.user);
 
   const navigaTo = useNavigate();
@@ -76,6 +77,20 @@ const AuctionItem = () => {
                     Minimum Bid:
                     <span className="text-[#D6482B]">
                       Rs.{auctionDetails.startingBid}
+                    </span>
+                  </p>
+                  <p className="text-lg font-semibold">
+                    Seller:
+                    <span className="text-[#D6482B] ml-2">
+                      {auctionDetails.createdBy?.userName ||
+                        "Seller name unavailable"}
+                    </span>
+                  </p>
+
+                  <p className="text-lg font-semibold">
+                    Seller Rating:
+                    <span className="text-[#D6482B] ml-2">
+                      {auctionDetails.createdBy?.rating || 0} / 5
                     </span>
                   </p>
                 </div>

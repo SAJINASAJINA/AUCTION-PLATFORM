@@ -133,6 +133,7 @@ export const getMyAuctionItems = catchAsyncErrors(async (req, res, next) => {
     items,
   });
 });
+
 export const getAuctionDetails = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
 
@@ -140,7 +141,10 @@ export const getAuctionDetails = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Invalid Id format.", 400));
   }
 
-  const auctionItem = await Auction.findById(id);
+  const auctionItem = await Auction.findById(id).populate({
+    path: "createdBy",
+    select: "+userName email profileImage rating ratingCount",
+  });
 
   if (!auctionItem) {
     return next(new ErrorHandler("Auction not found.", 404));
@@ -151,9 +155,11 @@ export const getAuctionDetails = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     auctionItem,
+
     bidders,
   });
 });
+
 export const removeFromAuction = catchAsyncErrors(async (req, res, next) => {
   const { id } = req.params;
 
@@ -176,6 +182,75 @@ export const removeFromAuction = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Auction item deleted successfully.",
+  });
+});
+export const updateAuctionItem = catchAsyncErrors(async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(new ErrorHandler("Invalid Id format.", 400));
+  }
+
+  const auctionItem = await Auction.findById(id);
+
+  if (!auctionItem) {
+    return next(new ErrorHandler("Auction not found.", 404));
+  }
+
+  if (auctionItem.createdBy.toString() !== req.user._id.toString()) {
+    return next(
+      new ErrorHandler("You are not allowed to update this auction.", 403),
+    );
+  }
+
+  const {
+    tittle,
+    description,
+    category,
+    condition,
+    auctionType,
+    startingBid,
+    startTime,
+    endTime,
+  } = req.body;
+
+  if (
+    !tittle ||
+    !description ||
+    !category ||
+    !condition ||
+    !auctionType ||
+    startingBid === undefined ||
+    !startTime ||
+    !endTime
+  ) {
+    return next(new ErrorHandler("Please provide all details.", 400));
+  }
+
+  if (new Date(startTime) >= new Date(endTime)) {
+    return next(
+      new ErrorHandler(
+        "Auction starting time must be less than ending time.",
+        400,
+      ),
+    );
+  }
+
+  auctionItem.tittle = tittle;
+  auctionItem.description = description;
+  auctionItem.category = category;
+  auctionItem.condition = condition;
+  auctionItem.auctionType = auctionType;
+  auctionItem.startingBid = Number(startingBid);
+  auctionItem.startTime = startTime;
+  auctionItem.endTime = endTime;
+
+  await auctionItem.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Auction item updated successfully.",
+    auctionItem,
   });
 });
 export const republishItem = catchAsyncErrors(async (req, res, next) => {
